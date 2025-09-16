@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Toast container -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+  <div id="automationToast" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="automationToastBody">
+        <!-- Message will appear here -->
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="login-card">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-user-shield fa-3x text-primary mb-3"></i>
+                            <h2 class="h3 mb-3 fw-bold">Welcome Back</h2>
+                            <p class="text-muted">Sign in to your account</p>
+                        </div>
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">
+                                    <i class="fas fa-envelope me-2"></i>Email Address
+                                </label>
+                                <input type="email" class="form-control form-control-lg" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">
+                                    <i class="fas fa-lock me-2"></i>Password
+                                </label>
+                                <input type="password" class="form-control form-control-lg" id="password" required>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="remember">
+                                <label class="form-check-label" for="remember">Remember me</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100">
+                                <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                            </button>
+                        </form>
+                        <div class="text-center mt-4">
+                            <p class="text-muted small">Demo: Use any email and password</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="d-none">
+        <div class="container-fluid p-0">
+            <div class="row g-0">
+                <!-- Sidebar -->
+                <div class="col-md-3 col-lg-2">
+                    <div class="sidebar">
+                        <div class="p-4">
+                            <div class="d-flex align-items-center mb-4">
+                                <!-- <i class="fas fa-crown fa-2x me-3 text-warning"></i> -->
+                                <h4 class="mb-0 fw-bold text-white">Admin Panel</h4>
+                            </div>
+                            <nav class="nav flex-column">
+                                <button class="nav-link text-start border-0 bg-transparent active" data-tab="dashboardContent">
+                                    <i class="fas fa-tachometer-alt me-3"></i>Dashboard
+                                </button>
+                                <button class="nav-link text-start border-0 bg-transparent" data-tab="userManagement">
+                                    <i class="fas fa-users me-3"></i>User Management
+                                </button>
+                                <button class="nav-link text-start border-0 bg-transparent" data-tab="analytics">
+                                    <i class="fas fa-chart-bar me-3"></i>Analytics
+                                </button>
+                                <button class="nav-link text-start border-0 bg-transparent" data-tab="settings">
+                                    <i class="fas fa-cog me-3"></i>Settings
+                                </button>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <!-- Main Content -->
+                <div class="col-md-9 col-lg-10">
+                    <div class="main-content">
+                        <!-- Header -->
+                        <header class="bg-white shadow-sm border-bottom">
+                            <div class="container-fluid">
+                                <div class="row align-items-center py-3">
+                                    <div class="col-md-6">
+                                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center justify-content-end">
+                                            <div class="dropdown">
+                                                <button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center" 
+                                                        type="button" data-bs-toggle="dropdown">
+                                                    <!-- <img src="images/demo.png"
+                                                         alt="Profile" class="rounded-circle me-2" width="32" height="32"> -->
+                                                    <span class="me-2" id="userName">Admin User</span>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                                                    <!-- <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li> -->
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li><button class="dropdown-item" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </header>
+
+                        <!-- Content Area -->
+                        <div class="p-4">
+                            <!-- Dashboard Content -->
+                            <div id="dashboardContent" class="tab-content">
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <h2 class="h4 mb-3">Dashboard Overview</h2>
+                                    </div>
+                                </div>
+
+                                <div class="row g-4 mb-4">
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="card stats-card">
+                                            <div class="stats-icon bg-primary">
+                                                <!-- <i class="fas fa-users"></i> -->
+                                                <i class="fas fa-file-alt"></i>
+                                            </div>
+                                            <h3 class="h2 mb-1">20</h3>
+                                            <p class="text-muted mb-2">Total Saved RFPs</p>
+                                            <span class="badge bg-primary bg-opacity-10 text-primary">+15% from last month</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="card stats-card">
+                                            <div class="stats-icon bg-success">
+                                                <!-- <i class="fas fa-chart-line"></i> -->
+                                                <i class="fas fa-download"></i>
+                                            </div>
+                                            <h3 class="h2 mb-1">998</h3>
+                                            <p class="text-muted mb-2">Total Downloaded RFPs</p>
+                                            <span class="badge bg-success bg-opacity-10 text-success">+8% from last month</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="card stats-card">
+                                            <div class="stats-icon bg-info">
+                                                <!-- <i class="fas fa-dollar-sign"></i> -->
+                                                <i class="fas fa-robot"></i>
+                                            </div>
+                                            <h3 class="h2 mb-1">100</h3>
+                                            <p class="text-muted mb-2">Sucessfully Ran Automation</p>
+                                            <span class="badge bg-info bg-opacity-10 text-info">+23% from last month</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="card stats-card">
+                                            <div class="stats-icon bg-warning">
+                                                <!-- <i class="fas fa-headset"></i> -->
+                                                <i class="fas fa-clock"></i>
+                                            </div>
+                                            <h3 class="h2 mb-1">100 Hours</h3>
+                                            <p class="text-muted mb-2">Total Time Saved</p>
+                                            <span class="badge bg-warning bg-opacity-10 text-warning">-5% from last month</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                               <div class="row g-4">
+                                <!-- Recent Activity (Automation Related) -->
+                                <div class="col-md-8">
+                                    <div class="card">
+                                        <div class="card-header bg-white">
+                                            <h5 class="card-title mb-0">
+                                                <i class="fas fa-robot me-2"></i>Recent Automation Activity
+                                            </h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="list-group list-group-flush">
+                                                <div class="list-group-item d-flex align-items-center py-3">
+                                                    <div class="rounded-circle bg-primary bg-opacity-10 p-2 me-3">
+                                                        <i class="fas fa-play-circle text-primary"></i>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <h6 class="mb-1">Automation Job Started</h6>
+                                                        <small class="text-muted">RFP Extraction Bot triggered</small>
+                                                    </div>
+                                                    <small class="text-muted">2 min ago</small>
+                                                </div>
+                                                <div class="list-group-item d-flex align-items-center py-3">
+                                                    <div class="rounded-circle bg-success bg-opacity-10 p-2 me-3">
+                                                        <i class="fas fa-check-circle text-success"></i>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <h6 class="mb-1">Automation Completed</h6>
+                                                        <small class="text-muted">Downloaded 25 RFPs successfully</small>
+                                                    </div>
+                                                    <small class="text-muted">10 min ago</small>
+                                                </div>
+                                                <div class="list-group-item d-flex align-items-center py-3">
+                                                    <div class="rounded-circle bg-warning bg-opacity-10 p-2 me-3">
+                                                        <i class="fas fa-exclamation-circle text-warning"></i>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <h6 class="mb-1">Automation Warning</h6>
+                                                        <small class="text-muted">Delay detected in SAP sync</small>
+                                                    </div>
+                                                    <small class="text-muted">30 min ago</small>
+                                                </div>
+                                                <div class="list-group-item d-flex align-items-center py-3">
+                                                    <div class="rounded-circle bg-danger bg-opacity-10 p-2 me-3">
+                                                        <i class="fas fa-times-circle text-danger"></i>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <h6 class="mb-1">Automation Failed</h6>
+                                                        <small class="text-muted">SharePoint upload error</small>
+                                                    </div>
+                                                    <small class="text-muted">1 hour ago</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Quick Actions (Automation Related) -->
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-header bg-white">
+                                            <h5 class="card-title mb-0">
+                                                <i class="fas fa-cogs me-2"></i>Automation Controls
+                                            </h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="d-grid gap-2">
+                                                   <button class="btn btn-primary" id="runAutomationBtn">
+                                                    <i class="fas fa-play me-2"></i>Run Automation
+                                                    </button>
+
+                                                <button class="btn btn-outline-secondary" data-tab="scheduleAutomation">
+                                                    <i class="fas fa-calendar-alt me-2"></i>Schedule Automation
+                                                </button>
+                                                <button class="btn btn-outline-secondary" data-tab="monitorAutomation">
+                                                    <i class="fas fa-tachometer-alt me-2"></i>Monitor Jobs
+                                                </button>
+                                                <button class="btn btn-outline-secondary" data-tab="logs">
+                                                    <i class="fas fa-file-alt me-2"></i>View Logs
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            </div>
+
+                            <!-- User Management Content -->
+                            <div id="userManagement" class="tab-content d-none">
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <h2 class="h4 mb-0">User Management</h2>
+                                        <p class="text-muted">Manage system users and their permissions</p>
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal" onclick="openUserModal()">
+                                            <i class="fas fa-plus me-2"></i>Add New User
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header bg-white">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-6">
+                                                <h5 class="card-title mb-0">
+                                                    <i class="fas fa-users me-2"></i>All Users
+                                                </h5>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">
+                                                        <i class="fas fa-search"></i>
+                                                    </span>
+                                                    <input type="text" class="form-control" placeholder="Search users..." id="userSearch">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>User</th>
+                                                        <th>Email</th>
+                                                        <th>Role</th>
+                                                        <th>Status</th>
+                                                        <th>Join Date</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="userTableBody">
+                                                    <!-- Users will be populated by JavaScript -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Analytics Content -->
+                        
+                        <div id="analytics" class="tab-content d-none">
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <h2 class="h4 mb-3">Automation Analytics</h2>
+                                    <p class="text-muted">Detailed insights into automation performance and efficiency</p>
+                                </div>
+                            </div>
+
+                            <div class="row g-4">
+                                <!-- RFPs Processed -->
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-header bg-white">
+                                            <h5 class="card-title mb-0">
+                                                <i class="fas fa-file-alt me-2"></i>RFPs Processed
+                                            </h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <canvas id="rfpChart" height="150"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Automation Performance -->
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-header bg-white">
+                                                <h5 class="card-title mb-0">
+                                                    <i class="fas fa-robot me-2"></i>Automation Performance
+                                                </h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <canvas id="automationChart"></canvas>
+                                            </div>s
+                                        </div>
+                                    </div>
+                                     <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-header bg-white">
+                                                <h5 class="card-title mb-0">
+                                                    <i class="fas fa-clock me-2"></i>Time Efficiency
+                                                </h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <canvas id="timeChart" height="150"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row g-4 mt-1">
+                                    <!-- Time Efficiency -->
+                                   
+
+                                    <!-- Trend Insights -->
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-header bg-white">
+                                                <h5 class="card-title mb-0">
+                                                    <i class="fas fa-chart-pie me-2"></i>Trend Insights
+                                                </h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <canvas id="trendChart" height="150"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Settings Content -->
+                            <div id="settings" class="tab-content d-none">
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <h2 class="h4 mb-3">System Settings</h2>
+                                        <p class="text-muted">Configure your application settings</p>
+                                    </div>
+                                </div>
+
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-header bg-white">
+                                                <h5 class="card-title mb-0">
+                                                    <i class="fas fa-cog me-2"></i>General Settings
+                                                </h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <form>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Site Name</label>
+                                                        <input type="text" class="form-control" value="Admin Dashboard">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Admin Email</label>
+                                                        <input type="email" class="form-control" value="admin@example.com">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Timezone</label>
+                                                        <select class="form-select">
+                                                            <option>UTC</option>
+                                                            <option>EST</option>
+                                                            <option>PST</option>
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-header bg-white">
+                                                <h5 class="card-title mb-0">
+                                                    <i class="fas fa-shield-alt me-2"></i>Security Settings
+                                                </h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-check form-switch mb-3">
+                                                    <input class="form-check-input" type="checkbox" id="twoFactor" checked>
+                                                    <label class="form-check-label" for="twoFactor">
+                                                        Two-Factor Authentication
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-switch mb-3">
+                                                    <input class="form-check-input" type="checkbox" id="loginNotifications" checked>
+                                                    <label class="form-check-label" for="loginNotifications">
+                                                        Login Notifications
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-switch mb-3">
+                                                    <input class="form-check-input" type="checkbox" id="sessionTimeout">
+                                                    <label class="form-check-label" for="sessionTimeout">
+                                                        Auto Session Timeout
+                                                    </label>
+                                                </div>
+                                                <button class="btn btn-primary">Update Security</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Modal -->
+    <div class="modal fade" id="userModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userModalTitle">Add New User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="userForm">
+                        <input type="hidden" id="userId">
+                        <div class="mb-3">
+                            <label for="userName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="userNameInput" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="userEmailInput" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userRole" class="form-label">Role</label>
+                            <select class="form-select" id="userRoleInput" required>
+                                <option value="">Select Role</option>
+                                <option value="Administrator">Administrator</option>
+                                <option value="Editor">Editor</option>
+                                <option value="User">User</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userStatus" class="form-label">Status</label>
+                            <select class="form-select" id="userStatusInput" required>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveUser()">Save User</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="automationToast" class="toast text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+        <strong class="me-auto">Automation</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="automationToastBody">
+        ✅ Automation started!
+        </div>
+    </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chart.js Scripts -->
+    <style>
+    /* Fixed size for charts */
+    canvas {
+        width: 400px !important;
+        height: 250px !important;
+    }
+</style>
+
+<script>
+    // RFPs Processed
+    new Chart(document.getElementById('rfpChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Saved RFPs', 'Downloaded RFPs'],
+            datasets: [{
+                label: 'RFPs',
+                data: [20, 998],
+                backgroundColor: ['#0d6efd', '#198754']
+            }]
+        },
+        options: {
+            responsive: false,
+            maintainAspectRatio: false
+        }
+    });
+
+    // Automation Performance (Line Chart)
+    new Chart(document.getElementById('automationChart'), {
+        type: 'line',
+        data: {
+            labels: ['Run 1', 'Run 2', 'Run 3', 'Run 4', 'Run 5', 'Run 6'], // Example runs
+            datasets: [
+                {
+                    label: 'Successful Runs',
+                    data: [18, 20, 22, 25, 24, 26],
+                    borderColor: '#198754',
+                    backgroundColor: 'rgba(25,135,84,0.2)',
+                    tension: 0.3,
+                    fill: true
+                },
+                {
+                    label: 'Failed Runs',
+                    data: [1, 0, 2, 1, 0, 1],
+                    borderColor: '#dc3545',
+                    backgroundColor: 'rgba(220,53,69,0.2)',
+                    tension: 0.3,
+                    fill: true
+                }
+            ]
+        },
+        options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Number of Runs'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Automation Run Timeline'
+                    }
+                }
+            }
+        }
+    });
+
+
+    // Time Efficiency
+    new Chart(document.getElementById('timeChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Total Hours Saved', 'Avg per Run (hrs)'],
+            datasets: [{
+                label: 'Hours',
+                data: [100, 1.2],
+                backgroundColor: ['#ffc107', '#fd7e14']
+            }]
+        },
+        options: {
+            responsive: false,
+            maintainAspectRatio: false
+        }
+    });
+
+    // Trend Insights
+    new Chart(document.getElementById('trendChart'), {
+        type: 'line',
+        data: {
+            labels: ['Saved RFPs', 'Automation Runs', 'Time Saved'],
+            datasets: [{
+                label: 'Growth %',
+                data: [15, 23, -5],
+                borderColor: '#0dcaf0',
+                backgroundColor: 'rgba(13, 202, 240, 0.3)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+<!-- Message area -->
+<div id="automationMessage" class="alert d-none mt-3"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+
+
+
+$(document).ready(function () {
+  $("#runAutomationBtn").click(function () {
+
+        $.ajax({
+        url: "https://tnw7lfn2-8000.inc1.devtunnels.ms/run-automation",
+        method: "GET",
+        success: function (response) {
+            console.log("Raw response:", response);
+
+            let msg = (response && response.message) 
+                        ? response.message 
+                        : "Automation triggered successfully";
+
+            $("#automationToastBody").text("✅ " + msg);
+            $("#automationToast")
+            .removeClass("text-bg-danger")
+            .addClass("text-bg-success");
+
+            new bootstrap.Toast(document.getElementById("automationToast")).show();
+        },
+        // error: function (xhr) {
+        //     console.error("Error response:", xhr);
+
+        //     $("#automationToastBody").text("❌ Failed to start automation");
+        //     $("#automationToast")
+        //     .removeClass("text-bg-success")
+        //     .addClass("text-bg-danger");
+
+        //     new bootstrap.Toast(document.getElementById("automationToast")).show();
+        // }
+        });
+        let btn = $(this);
+
+        // Change button style + label
+        btn
+        .removeClass("btn-primary")
+        .addClass("btn-secondary")
+        .prop("disabled", true)
+        .html('<i class="fas fa-spinner fa-spin me-2"></i> Process is running in background');
+
+        // Show toast
+        $("#automationToastBody").text("✅ Automation started in background");
+        new bootstrap.Toast(document.getElementById("automationToast")).show();
+
+        // Reset button after 5 minutes (300000 ms)
+        setTimeout(function () {
+        btn
+            .removeClass("btn-secondary")
+            .addClass("btn-primary")
+            .prop("disabled", false)
+            .html('<i class="fas fa-play me-2"></i> Run Automation');
+        }, 300000);
+  });
+});
+</script>
+
+<!-- Script Code -->
+
+<script>
+
+
+// Sample user data
+let users = [
+    {
+        id: 1,
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        role: 'Administrator',
+        status: 'Active',
+        joinDate: '2024-01-15',
+        avatar: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150'
+    },
+    {
+        id: 2,
+        name: 'Jane Smith',
+        email: 'jane.smith@example.com',
+        role: 'Editor',
+        status: 'Active',
+        joinDate: '2024-01-10',
+        avatar: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150'
+    },
+    {
+        id: 3,
+        name: 'Mike Johnson',
+        email: 'mike.johnson@example.com',
+        role: 'User',
+        status: 'Inactive',
+        joinDate: '2024-01-05',
+        avatar: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=150'
+    },
+    {
+        id: 4,
+        name: 'Sarah Wilson',
+        email: 'sarah.wilson@example.com',
+        role: 'Editor',
+        status: 'Active',
+        joinDate: '2024-01-20',
+        avatar: 'https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg?auto=compress&cs=tinysrgb&w=150'
+    }
+];
+
+let editingUserId = null;
+
+// Check if user is logged in on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn === 'true') {
+        showDashboard();
+        const userEmail = localStorage.getItem('userEmail');
+        if (userEmail) {
+            document.getElementById('userName').textContent = userEmail;
+        }
+    } else {
+        showLogin();
+    }
+    
+    initializeEventListeners();
+    renderUsers();
+});
+
+function initializeEventListeners() {
+    // Login form handler
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+    
+    // Logout button handler
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', handleLogout);
+    }
+    
+    // Navigation handlers
+    const navLinks = document.querySelectorAll('[data-tab]');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            const tabName = this.getAttribute('data-tab');
+            showTab(tabName);
+            
+            // Update active nav link
+            document.querySelectorAll('.sidebar .nav-link').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            if (this.classList.contains('nav-link')) {
+                this.classList.add('active');
+            }
+        });
+    });
+    
+    // User search functionality
+    const userSearch = document.getElementById('userSearch');
+    if (userSearch) {
+        userSearch.addEventListener('input', filterUsers);
+    }
+    
+    // User form handler
+    const userForm = document.getElementById('userForm');
+    if (userForm) {
+        userForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            saveUser();
+        });
+    }
+}
+
+function handleLogin(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    
+    if (!email || !password) {
+        showAlert('Please fill in all fields', 'danger');
+        return;
+    }
+    
+    // Simulate login (accept any email/password combination)
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('userEmail', email);
+    
+    // Show success message
+    showAlert('Login successful! Redirecting...', 'success');
+    
+    // Redirect to dashboard after brief delay
+    setTimeout(() => {
+        showDashboard();
+        document.getElementById('userName').textContent = email;
+    }, 1000);
+}
+
+function handleLogout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userEmail');
+    showAlert('Logged out successfully', 'info');
+    setTimeout(() => {
+        showLogin();
+    }, 1000);
+}
+
+function showLogin() {
+    document.getElementById('loginPage').classList.remove('d-none');
+    document.getElementById('dashboard').classList.add('d-none');
+}
+
+function showDashboard() {
+    document.getElementById('loginPage').classList.add('d-none');
+    document.getElementById('dashboard').classList.remove('d-none');
+}
+
+function showTab(tabName) {
+    // Hide all tabs
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.add('d-none');
+    });
+    
+    // Show selected tab
+    const selectedTab = document.getElementById(tabName);
+    if (selectedTab) {
+        selectedTab.classList.remove('d-none');
+    }
+}
+
+function showAlert(message, type = 'info') {
+    // Remove existing alerts
+    const existingAlert = document.querySelector('.alert');
+    if (existingAlert) {
+        existingAlert.remove();
+    }
+    
+    // Create new alert
+    const alert = document.createElement('div');
+    alert.className = `alert alert-${type} alert-dismissible fade show`;
+    alert.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    // Insert alert at the top of the active container
+    const activeContainer = document.querySelector('#loginPage:not(.d-none), #dashboard:not(.d-none)');
+    if (activeContainer) {
+        activeContainer.insertBefore(alert, activeContainer.firstChild);
+    }
+    
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        if (alert) {
+            alert.remove();
+        }
+    }, 5000);
+}
+
+function renderUsers() {
+    const tbody = document.getElementById('userTableBody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    users.forEach(user => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>
+                <div class="d-flex align-items-center">
+                    <div>
+                        <h6 class="mb-0">${user.name}</h6>
+                    </div>
+                </div>
+            </td>
+            <td>${user.email}</td>
+            <td>
+                <span class="badge ${getRoleBadgeClass(user.role)}">
+                    ${user.role}
+                </span>
+            </td>
+            <td>
+                <span class="badge ${user.status === 'Active' ? 'bg-success' : 'bg-secondary'}">
+                    ${user.status}
+                </span>
+            </td>
+            <td>${new Date(user.joinDate).toLocaleDateString()}</td>
+            <td>
+                <div class="btn-group" role="group">
+                    <button class="btn btn-sm btn-outline-primary" onclick="editUser(${user.id})" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteUser(${user.id})" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function getRoleBadgeClass(role) {
+    switch (role) {
+        case 'Administrator':
+            return 'bg-danger';
+        case 'Editor':
+            return 'bg-warning text-dark';
+        case 'User':
+            return 'bg-secondary';
+        default:
+            return 'bg-secondary';
+    }
+}
+
+function filterUsers() {
+    const searchTerm = document.getElementById('userSearch').value.toLowerCase();
+    const filteredUsers = users.filter(user =>
+        user.name.toLowerCase().includes(searchTerm) ||
+        user.email.toLowerCase().includes(searchTerm) ||
+        user.role.toLowerCase().includes(searchTerm)
+    );
+    
+    renderFilteredUsers(filteredUsers);
+}
+
+function renderFilteredUsers(filteredUsers) {
+    const tbody = document.getElementById('userTableBody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    filteredUsers.forEach(user => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>
+                <div class="d-flex align-items-center">
+                    <img src="${user.avatar}" alt="${user.name}" class="rounded-circle me-3" width="40" height="40">
+                    <div>
+                        <h6 class="mb-0">${user.name}</h6>
+                    </div>
+                </div>
+            </td>
+            <td>${user.email}</td>
+            <td>
+                <span class="badge ${getRoleBadgeClass(user.role)}">
+                    ${user.role}
+                </span>
+            </td>
+            <td>
+                <span class="badge ${user.status === 'Active' ? 'bg-success' : 'bg-secondary'}">
+                    ${user.status}
+                </span>
+            </td>
+            <td>${new Date(user.joinDate).toLocaleDateString()}</td>
+            <td>
+                <div class="btn-group" role="group">
+                    <button class="btn btn-sm btn-outline-primary" onclick="editUser(${user.id})" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteUser(${user.id})" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function openUserModal(userId = null) {
+    editingUserId = userId;
+    const modal = document.getElementById('userModal');
+    const modalTitle = document.getElementById('userModalTitle');
+    const form = document.getElementById('userForm');
+    
+    if (userId) {
+        // Edit mode
+        const user = users.find(u => u.id === userId);
+        if (user) {
+            modalTitle.textContent = 'Edit User';
+            document.getElementById('userId').value = user.id;
+            document.getElementById('userNameInput').value = user.name;
+            document.getElementById('userEmailInput').value = user.email;
+            document.getElementById('userRoleInput').value = user.role;
+            document.getElementById('userStatusInput').value = user.status;
+        }
+    } else {
+        // Add mode
+        modalTitle.textContent = 'Add New User';
+        form.reset();
+        document.getElementById('userId').value = '';
+    }
+}
+
+function editUser(userId) {
+    openUserModal(userId);
+    const modal = new bootstrap.Modal(document.getElementById('userModal'));
+    modal.show();
+}
+
+function deleteUser(userId) {
+    if (confirm('Are you sure you want to delete this user?')) {
+        users = users.filter(user => user.id !== userId);
+        renderUsers();
+        showAlert('User deleted successfully', 'success');
+    }
+}
+
+function saveUser() {
+    const form = document.getElementById('userForm');
+    const formData = new FormData(form);
+    
+    const userData = {
+        name: document.getElementById('userNameInput').value,
+        email: document.getElementById('userEmailInput').value,
+        role: document.getElementById('userRoleInput').value,
+        status: document.getElementById('userStatusInput').value
+    };
+    
+    // Basic validation
+    if (!userData.name || !userData.email || !userData.role || !userData.status) {
+        showAlert('Please fill in all fields', 'danger');
+        return;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(userData.email)) {
+        showAlert('Please enter a valid email address', 'danger');
+        return;
+    }
+    
+    if (editingUserId) {
+        // Update existing user
+        const userIndex = users.findIndex(u => u.id === editingUserId);
+        if (userIndex !== -1) {
+            users[userIndex] = {
+                ...users[userIndex],
+                ...userData
+            };
+            showAlert('User updated successfully', 'success');
+        }
+    } else {
+        // Add new user
+        const newUser = {
+            id: Math.max(...users.map(u => u.id)) + 1,
+            ...userData,
+            joinDate: new Date().toISOString().split('T')[0],
+            avatar: getRandomAvatar()
+        };
+        users.push(newUser);
+        showAlert('User added successfully', 'success');
+    }
+    
+    renderUsers();
+    
+    // Close modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById('userModal'));
+    modal.hide();
+    
+    // Reset form
+    form.reset();
+    editingUserId = null;
+}
+
+function getRandomAvatar() {
+    const avatars = [
+        'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150',
+        'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150',
+        'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=150',
+        'https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg?auto=compress&cs=tinysrgb&w=150',
+        'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=150',
+        'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150'
+    ];
+    return avatars[Math.floor(Math.random() * avatars.length)];
+}
+
+// Mobile sidebar toggle (optional enhancement)
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('show');
+}
+
+// Add click outside to close sidebar on mobile
+document.addEventListener('click', function(event) {
+    const sidebar = document.querySelector('.sidebar');
+    const isClickInsideSidebar = sidebar.contains(event.target);
+    
+    if (!isClickInsideSidebar && window.innerWidth <= 768) {
+        sidebar.classList.remove('show');
+    }
+});
+
+// Handle window resize
+window.addEventListener('resize', function() {
+    const sidebar = document.querySelector('.sidebar');
+    if (window.innerWidth > 768) {
+        sidebar.classList.remove('show');
+    }
+});
+
+// Smooth scrolling for internal links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Add loading states to buttons
+function addLoadingState(button) {
+    const originalText = button.innerHTML;
+    button.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Loading...';
+    button.disabled = true;
+    
+    setTimeout(() => {
+        button.innerHTML = originalText;
+        button.disabled = false;
+    }, 1000);
+}
+
+// Enhanced form validation
+function validateForm(formElement) {
+    const inputs = formElement.querySelectorAll('input[required], select[required]');
+    let isValid = true;
+    
+    inputs.forEach(input => {
+        if (!input.value.trim()) {
+            input.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            input.classList.remove('is-invalid');
+            input.classList.add('is-valid');
+        }
+    });
+    
+    return isValid;
+}
+
+// Real-time form validation
+document.addEventListener('input', function(e) {
+    if (e.target.hasAttribute('required')) {
+        if (e.target.value.trim()) {
+            e.target.classList.remove('is-invalid');
+            e.target.classList.add('is-valid');
+        } else {
+            e.target.classList.remove('is-valid');
+            e.target.classList.add('is-invalid');
+        }
+    }
+});
+
+// Initialize tooltips (if needed)
+document.addEventListener('DOMContentLoaded', function() {
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-tooltip]'));
+    const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
+
+// Export data functionality (demo)
+function exportData() {
+    const dataStr = JSON.stringify(users, null, 2);
+    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+    const url = URL.createObjectURL(dataBlob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'users-export.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    showAlert('Data exported successfully', 'success');
+}
+
+// Print functionality
+function printReport() {
+    window.print();
+}
+
+// Dark mode toggle (optional enhancement)
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+}
+
+// Load dark mode preference
+document.addEventListener('DOMContentLoaded', function() {
+    const darkMode = localStorage.getItem('darkMode');
+    if (darkMode === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+});
+</script>
+
+<style>
+
+    :root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    line-height: 1.6;
+}
+
+/* Login Styles */
+.login-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Sidebar Styles */
+.sidebar {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: -1;
+}
+
+.sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 15px 20px;
+    margin: 8px 0;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateX(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar .nav-link i {
+    width: 20px;
+    text-align: center;
+}
+
+/* Main Content */
+.main-content {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    background: white;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Stats Cards */
+.stats-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: none;
+    height: 100%;
+}
+
+.stats-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.stats-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 28px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
+    border-radius: 50%;
+}
+
+.stats-card h3 {
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.stats-card p {
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+/* Button Styles */
+.btn {
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+}
+
+.btn-outline-secondary {
+    border: 2px solid #e9ecef;
+    color: #6c757d;
+    background: white;
+}
+
+.btn-outline-secondary:hover {
+    background: #f8f9fa;
+    border-color: #dee2e6;
+    color: #495057;
+}
+
+/* Table Styles */
+.table {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.table th {
+    background-color: #f8f9fa;
+    border: none;
+    font-weight: 600;
+    color: #495057;
+    padding: 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table td {
+    border: none;
+    padding: 20px;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.01);
+}
+
+/* Badge Styles */
+.badge {
+    padding: 8px 16px;
+    font-weight: 500;
+    border-radius: 20px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+/* Modal Styles */
+.modal-content {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 24px;
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 24px;
+}
+
+/* Form Styles */
+.form-control,
+.form-select {
+    border-radius: 12px;
+    border: 2px solid #e9ecef;
+    padding: 12px 16px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+}
+
+.form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 8px;
+}
+
+/* List Group Styles */
+.list-group-item {
+    border: none;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+/* Header Styles */
+header {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tab-content {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        z-index: 1000;
+        transform: translateX(-100%);
+        width: 280px;
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0 !important;
+    }
+    
+    .stats-card {
+        margin-bottom: 20px;
+    }
+    
+    .login-card {
+        padding: 30px 20px;
+        margin: 10px;
+    }
+    
+    .card-body {
+        padding: 15px;
+    }
+    
+    .table-responsive {
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+    
+    .stats-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+    
+    .stats-card h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Loading Animation */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Success/Error Messages */
+.alert {
+    border-radius: 12px;
+    border: none;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+}
+
+/* Gradient Text */
+.gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+</style>
+
+
+
+
+
+
+</body>
+</html>
