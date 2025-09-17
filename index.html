@@ -80,6 +80,9 @@
                                 <button class="nav-link text-start border-0 bg-transparent" data-tab="userManagement">
                                     <i class="fas fa-users me-3"></i>User Management
                                 </button>
+                                <button class="nav-link text-start border-0 bg-transparent" data-tab="viewlogs">
+                                    <i class="fas fa-users me-3"></i>View Logs
+                                </button>
                                 <button class="nav-link text-start border-0 bg-transparent" data-tab="analytics">
                                     <i class="fas fa-chart-bar me-3"></i>Analytics
                                 </button>
@@ -205,7 +208,7 @@
                                                 <button class="btn btn-outline-secondary" data-tab="monitorAutomation">
                                                     <i class="fas fa-tachometer-alt me-2"></i>Monitor Jobs
                                                 </button>
-                                                <button class="btn btn-outline-secondary" data-tab="logs">
+                                                <button class="btn btn-outline-secondary" data-tab="viewlogs">
                                                     <i class="fas fa-file-alt me-2"></i>View Logs
                                                 </button>
                                             </div>
@@ -269,152 +272,171 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- View Logs -->
 
-                            <!-- Analytics Content -->
-                        
-                        <div id="analytics" class="tab-content d-none">
+                            <div id="viewlogs" class="tab-content d-none">
                             <div class="row mb-4">
-                                <div class="col">
-                                    <h2 class="h4 mb-3">Automation Analytics</h2>
-                                    <p class="text-muted">Detailed insights into automation performance and efficiency</p>
+                                <div class="col-md-6">
+                                    <h2 class="h4 mb-0">View Automation Logs</h2>
                                 </div>
                             </div>
 
-                            <div class="row g-4">
-                                <!-- RFPs Processed -->
-                                <div class="col-md-4">
-                                    <div class="card">
-                                        <div class="card-header bg-white">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6">
                                             <h5 class="card-title mb-0">
-                                                <i class="fas fa-file-alt me-2"></i>RFPs Processed
+                                                <i class="fas fa-clipboard-list me-2"></i>All Automation Logs
                                             </h5>
                                         </div>
-                                        <div class="card-body">
-                                            <canvas id="rfpChart" height="150"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Automation Performance -->
-                                    <div class="col-md-4">
-                                        <div class="card">
-                                            <div class="card-header bg-white">
-                                                <h5 class="card-title mb-0">
-                                                    <i class="fas fa-robot me-2"></i>Automation Performance
-                                                </h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <canvas id="automationChart"></canvas>
-                                            </div>s
-                                        </div>
-                                    </div>
-                                     <div class="col-md-4">
-                                        <div class="card">
-                                            <div class="card-header bg-white">
-                                                <h5 class="card-title mb-0">
-                                                    <i class="fas fa-clock me-2"></i>Time Efficiency
-                                                </h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <canvas id="timeChart" height="150"></canvas>
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-search"></i>
+                                                </span>
+                                                <input type="text" class="form-control" placeholder="Search logs..." id="logSearch">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row g-4 mt-1">
-                                    <!-- Time Efficiency -->
-                                   
-
-                                    <!-- Trend Insights -->
-                                    <div class="col-md-4">
-                                        <div class="card">
-                                            <div class="card-header bg-white">
-                                                <h5 class="card-title mb-0">
-                                                    <i class="fas fa-chart-pie me-2"></i>Trend Insights
-                                                </h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <canvas id="trendChart" height="150"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
+                              <div class="card-body p-0">
+                                <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                                    <table class="table table-hover mb-0 table-fixed text-nowrap">
+                                    <thead class="table-light">
+                                        <tr>
+                                        <th style="width: 20%">Run ID</th>
+                                        <th style="width: 15%">Event Time</th>
+                                        <th style="width: 12%">Event Type</th>
+                                        <th style="width: 13%">RFP ID</th>
+                                        <th style="width: 10%">Action</th>
+                                        <th style="width: 10%">Status</th>
+                                        <th style="width: 20%">Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="logTableBody">
+                                        <!-- Logs will be populated -->
+                                    </tbody>
+                                    </table>
+                                </div>
                                 </div>
                             </div>
-
-                            <!-- Settings Content -->
-                            <div id="settings" class="tab-content d-none">
+                        </div>
+                        
+                            <!-- Analytics Content -->
+                        
+                            <div id="analytics" class="tab-content d-none">
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <h2 class="h4 mb-3">System Settings</h2>
-                                        <p class="text-muted">Configure your application settings</p>
+                                        <h2 class="h4 mb-3">Automation Analytics</h2>
+                                        <p class="text-muted">Detailed insights into automation performance and efficiency</p>
                                     </div>
                                 </div>
 
                                 <div class="row g-4">
-                                    <div class="col-md-6">
+                                    <!-- RFPs Processed -->
+                                    <div class="col-md-4">
                                         <div class="card">
                                             <div class="card-header bg-white">
                                                 <h5 class="card-title mb-0">
-                                                    <i class="fas fa-cog me-2"></i>General Settings
+                                                    <i class="fas fa-file-alt me-2"></i>RFPs Processed
                                                 </h5>
                                             </div>
                                             <div class="card-body">
-                                                <form>
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Site Name</label>
-                                                        <input type="text" class="form-control" value="Admin Dashboard">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Admin Email</label>
-                                                        <input type="email" class="form-control" value="admin@example.com">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Timezone</label>
-                                                        <select class="form-select">
-                                                            <option>UTC</option>
-                                                            <option>EST</option>
-                                                            <option>PST</option>
-                                                        </select>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                </form>
+                                                <canvas id="rfpChart" height="150"></canvas>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="card">
-                                            <div class="card-header bg-white">
-                                                <h5 class="card-title mb-0">
-                                                    <i class="fas fa-shield-alt me-2"></i>Security Settings
-                                                </h5>
+
+                                    <!-- Automation Performance -->
+                                        <div class="col-md-4">
+                                            <div class="card">
+                                                <div class="card-header bg-white">
+                                                    <h5 class="card-title mb-0">
+                                                        <i class="fas fa-robot me-2"></i>Automation Performance
+                                                    </h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <canvas id="automationChart"></canvas>
+                                                </div>
                                             </div>
-                                            <div class="card-body">
-                                                <div class="form-check form-switch mb-3">
-                                                    <input class="form-check-input" type="checkbox" id="twoFactor" checked>
-                                                    <label class="form-check-label" for="twoFactor">
-                                                        Two-Factor Authentication
-                                                    </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Settings Content -->
+                                <div id="settings" class="tab-content d-none">
+                                    <div class="row mb-4">
+                                        <div class="col">
+                                            <h2 class="h4 mb-3">System Settings</h2>
+                                            <p class="text-muted">Configure your application settings</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-4">
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header bg-white">
+                                                    <h5 class="card-title mb-0">
+                                                        <i class="fas fa-cog me-2"></i>General Settings
+                                                    </h5>
                                                 </div>
-                                                <div class="form-check form-switch mb-3">
-                                                    <input class="form-check-input" type="checkbox" id="loginNotifications" checked>
-                                                    <label class="form-check-label" for="loginNotifications">
-                                                        Login Notifications
-                                                    </label>
+                                                <div class="card-body">
+                                                    <form>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Site Name</label>
+                                                            <input type="text" class="form-control" value="Admin Dashboard">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Admin Email</label>
+                                                            <input type="email" class="form-control" value="admin@example.com">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Timezone</label>
+                                                            <select class="form-select">
+                                                                <option>UTC</option>
+                                                                <option>EST</option>
+                                                                <option>PST</option>
+                                                            </select>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                    </form>
                                                 </div>
-                                                <div class="form-check form-switch mb-3">
-                                                    <input class="form-check-input" type="checkbox" id="sessionTimeout">
-                                                    <label class="form-check-label" for="sessionTimeout">
-                                                        Auto Session Timeout
-                                                    </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header bg-white">
+                                                    <h5 class="card-title mb-0">
+                                                        <i class="fas fa-shield-alt me-2"></i>Security Settings
+                                                    </h5>
                                                 </div>
-                                                <button class="btn btn-primary">Update Security</button>
+                                                <div class="card-body">
+                                                    <div class="form-check form-switch mb-3">
+                                                        <input class="form-check-input" type="checkbox" id="twoFactor" checked>
+                                                        <label class="form-check-label" for="twoFactor">
+                                                            Two-Factor Authentication
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-switch mb-3">
+                                                        <input class="form-check-input" type="checkbox" id="loginNotifications" checked>
+                                                        <label class="form-check-label" for="loginNotifications">
+                                                            Login Notifications
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-switch mb-3">
+                                                        <input class="form-check-input" type="checkbox" id="sessionTimeout">
+                                                        <label class="form-check-label" for="sessionTimeout">
+                                                            Auto Session Timeout
+                                                        </label>
+                                                    </div>
+                                                    <button class="btn btn-primary">Update Security</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -518,7 +540,6 @@
     </div>
     </div>
 
-    
     <!-- Toast -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
     <div id="automationToast" class="toast text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
@@ -535,7 +556,45 @@
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Chart.js Scripts -->
+
     <style>
+        .table-fixed {
+  table-layout: fixed;
+  width: 100%;
+}
+.table-fixed th,
+.table-fixed td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+        .table-container {
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.table-scroll {
+    max-height: 865px;   /* ✅ control visible height */
+    overflow-y: auto;    /* ✅ scroll only vertically */
+}
+
+.table-scroll table {
+    margin: 0;
+    border-top: none;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.table td:last-child {
+    white-space: normal; /* let Details column wrap */
+}
+
         /* Fixed size for charts */
         canvas {
             width: 400px !important;
@@ -547,8 +606,7 @@
 <script>
     // Date Picker Logic
 
-    $(document).ready(function() {
-
+$(document).ready(function() {
     // Scedule Automation Modal Logic
     // Show modal on button click
     $("#scheduleAutomationBtn").click(function() {
@@ -578,124 +636,7 @@
     });
 
 
-    // RFPs Processed
-    new Chart(document.getElementById('rfpChart'), {
-        type: 'bar',
-        data: {
-            labels: ['Saved RFPs', 'Downloaded RFPs'],
-            datasets: [{
-                label: 'RFPs',
-                data: [20, 998],
-                backgroundColor: ['#0d6efd', '#198754']
-            }]
-        },
-        options: {
-            responsive: false,
-            maintainAspectRatio: false
-        }
-    });
-
-    // Automation Performance (Line Chart)
-    new Chart(document.getElementById('automationChart'), {
-        type: 'line',
-        data: {
-            labels: ['Run 1', 'Run 2', 'Run 3', 'Run 4', 'Run 5', 'Run 6'], // Example runs
-            datasets: [
-                {
-                    label: 'Successful Runs',
-                    data: [18, 20, 22, 25, 24, 26],
-                    borderColor: '#198754',
-                    backgroundColor: 'rgba(25,135,84,0.2)',
-                    tension: 0.3,
-                    fill: true
-                },
-                {
-                    label: 'Failed Runs',
-                    data: [1, 0, 2, 1, 0, 1],
-                    borderColor: '#dc3545',
-                    backgroundColor: 'rgba(220,53,69,0.2)',
-                    tension: 0.3,
-                    fill: true
-                }
-            ]
-        },
-        options: {
-            responsive: false,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom'
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Number of Runs'
-                    }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Automation Run Timeline'
-                    }
-                }
-            }
-        }
-    });
-
-
-    // Time Efficiency
-    new Chart(document.getElementById('timeChart'), {
-        type: 'bar',
-        data: {
-            labels: ['Total Hours Saved', 'Avg per Run (hrs)'],
-            datasets: [{
-                label: 'Hours',
-                data: [100, 1.2],
-                backgroundColor: ['#ffc107', '#fd7e14']
-            }]
-        },
-        options: {
-            responsive: false,
-            maintainAspectRatio: false
-        }
-    });
-
-    // Trend Insights
-    new Chart(document.getElementById('trendChart'), {
-        type: 'line',
-        data: {
-            labels: ['Saved RFPs', 'Automation Runs', 'Time Saved'],
-            datasets: [{
-                label: 'Growth %',
-                data: [15, 23, -5],
-                borderColor: '#0dcaf0',
-                backgroundColor: 'rgba(13, 202, 240, 0.3)',
-                fill: true,
-                tension: 0.3
-            }]
-        },
-        options: {
-            responsive: false,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    ticks: {
-                        callback: function(value) {
-                            return value + '%';
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-
 });
-
-
 
 </script>
 
@@ -707,42 +648,111 @@
 <script>
 $(document).ready(function () {
 
+    let isLoadingStats = false;
+    let isLoadingActivity = false;
+    let isLoadingLogs = false;
+
     async function loadStats() {
-        const response = await fetch("https://tnw7lfn2-8090.inc1.devtunnels.ms/stats");
-        const data = await response.json();
+        if (isLoadingStats) return; // prevent duplicate call
+        isLoadingStats = true;
 
-        // Helper: set value + badge
-        function setCard(valueId, changeId, value, change, positiveClass, negativeClass, suffix="") {
-            document.getElementById(valueId).textContent = value + suffix;
-            document.getElementById(changeId).textContent =
-                `${change.toFixed(1)}% from last month`;
-            document.getElementById(changeId).className =
-                `badge ${change >= 0 ? positiveClass : negativeClass}`;
+        try {
+            const response = await fetch("https://tnw7lfn2-8090.inc1.devtunnels.ms/stats");
+            const data = await response.json();
+
+            function setCard(valueId, changeId, value, change, positiveClass, negativeClass, suffix="") {
+                document.getElementById(valueId).textContent = value + suffix;
+                document.getElementById(changeId).textContent =
+                    `${change.toFixed(1)}% from last month`;
+                document.getElementById(changeId).className =
+                    `badge ${change >= 0 ? positiveClass : negativeClass}`;
+            }
+
+            // RFP Cards
+            setCard("savedRFPs", "savedChange", 
+                data.rfp.saved_rfps.value, data.rfp.saved_rfps.change,
+                "bg-primary bg-opacity-10 text-primary", "bg-danger bg-opacity-10 text-danger");
+
+            setCard("downloadedRFPs", "downloadChange", 
+                data.rfp.downloaded_rfps.value, data.rfp.downloaded_rfps.change,
+                "bg-success bg-opacity-10 text-success", "bg-danger bg-opacity-10 text-danger");
+
+            // Automation Cards
+            setCard("automationRuns", "automationChange", 
+                data.automation.total_runs.value, data.automation.total_runs.change,
+                "bg-info bg-opacity-10 text-info", "bg-danger bg-opacity-10 text-danger");
+
+            setCard("successfulRuns", "successfulChange", 
+                data.automation.successful_runs.value, data.automation.successful_runs.change,
+                "bg-warning bg-opacity-10 text-warning", "bg-danger bg-opacity-10 text-danger");
+
+            // RFP Chart
+            new Chart(document.getElementById('rfpChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Saved RFPs', 'Downloaded RFPs'],
+                    datasets: [{
+                        label: 'RFPs',
+                        data: [data.rfp.saved_rfps.value, data.rfp.downloaded_rfps.value],
+                        backgroundColor: ['#0d6efd', '#198754']
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Automation Chart
+            new Chart(document.getElementById('automationChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Run 1', 'Run 2'],
+                    datasets: [
+                        {
+                            label: 'Total Runs',
+                            data: [0, data.automation.total_runs.value], 
+                            borderColor: '#0d6efd',
+                            backgroundColor: 'rgba(13, 110, 253, 0.2)',
+                            tension: 0.3,
+                            fill: false,
+                            pointRadius: 6,
+                            pointBackgroundColor: '#0d6efd'
+                        },
+                        {
+                            label: 'Successful Runs',
+                            data: [0, data.automation.successful_runs.value],
+                            borderColor: '#198754',
+                            backgroundColor: 'rgba(25, 135, 84, 0.2)',
+                            tension: 0.3,
+                            fill: false,
+                            pointRadius: 6,
+                            pointBackgroundColor: '#198754'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'top' } },
+                    scales: {
+                        x: { title: { display: true, text: 'Automation Run Timeline' } },
+                        y: { beginAtZero: true, title: { display: true, text: 'Number of Runs' } }
+                    }
+                }
+            });
+
+        } catch (error) {
+            console.error("Error loading stats:", error);
+        } finally {
+            isLoadingStats = false; // unlock
         }
-
-        // === RFP Cards ===
-        setCard("savedRFPs", "savedChange", 
-            data.rfp.saved_rfps.value, data.rfp.saved_rfps.change,
-            "bg-primary bg-opacity-10 text-primary", "bg-danger bg-opacity-10 text-danger");
-
-        setCard("downloadedRFPs", "downloadChange", 
-            data.rfp.downloaded_rfps.value, data.rfp.downloaded_rfps.change,
-            "bg-success bg-opacity-10 text-success", "bg-danger bg-opacity-10 text-danger");
-
-        // === Automation Cards ===
-        setCard("automationRuns", "automationChange", 
-            data.automation.total_runs.value, data.automation.total_runs.change,
-            "bg-info bg-opacity-10 text-info", "bg-danger bg-opacity-10 text-danger");
-
-        setCard("successfulRuns", "successfulChange", 
-            data.automation.successful_runs.value, data.automation.successful_runs.change,
-            "bg-warning bg-opacity-10 text-warning", "bg-danger bg-opacity-10 text-danger");
     }
 
-       function timeAgo(dateStr) {
+    function timeAgo(dateStr) {
         const now = new Date();
         const past = new Date(dateStr);
-        const diff = Math.floor((now - past) / 1000); // seconds
+        const diff = Math.floor((now - past) / 1000);
 
         if (diff < 60) return `${diff}s ago`;
         if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
@@ -751,6 +761,9 @@ $(document).ready(function () {
     }
 
     function loadAutomationActivity() {
+        if (isLoadingActivity) return;
+        isLoadingActivity = true;
+
         $.get("https://tnw7lfn2-8090.inc1.devtunnels.ms/get-automation-data", function (events) {
             const activityList = $("#automationActivityList");
             activityList.empty();
@@ -766,16 +779,92 @@ $(document).ready(function () {
                         <small class="text-muted">${event.subtitle}</small>
                     </div>
                     <small class="text-muted">${timeAgo(event.time)}</small>
-                </div>
-                `;
+                </div>`;
                 activityList.append(item);
             });
+        })
+        .always(() => {
+            isLoadingActivity = false;
         });
     }
+
+    function load_all_automation_logs() {
+        if (isLoadingLogs) return;
+        isLoadingLogs = true;
+
+        const logTableBody = document.getElementById("logTableBody");
+        const logSearch = document.getElementById("logSearch");
+
+        fetch("https://tnw7lfn2-8090.inc1.devtunnels.ms/get-all-automation-logs")
+            .then(response => {
+                if (!response.ok) throw new Error("Network response was not ok");
+                return response.json();
+            })
+            .then(data => {
+                renderLogs(data);
+            })
+            .catch(error => {
+                console.error("Error fetching logs:", error);
+                logTableBody.innerHTML = `<tr><td colspan="8" class="text-center text-danger">Error loading logs</td></tr>`;
+            })
+            .finally(() => {
+                isLoadingLogs = false;
+            });
+
+        function renderLogs(logs) {
+            logTableBody.innerHTML = "";
+
+            if (!logs || logs.length === 0) {
+                logTableBody.innerHTML = `<tr><td colspan="8" class="text-center text-muted">No automation logs available</td></tr>`;
+                return;
+            }
+
+            logs.forEach(log => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${log.RunID || "-"}</td>
+                    <td>${log.Event_Time || "-"}</td>
+                    <td>${log.Event_Type || "-"}</td>
+                    <td>${log.RFP_ID || "-"}</td>
+                    <td>${log.Action || "-"}</td>
+                    <td>
+                        <span class="badge ${log.Action_Status === 'Success' ? 'bg-success' : 'bg-danger'}">
+                            ${log.Action_Status || "Unknown"}
+                        </span>
+                    </td>
+                    <td>${log.Details || "-"}</td>`;
+                logTableBody.appendChild(row);
+            });
+        }
+
+        // Search filter bind once
+        if (!logSearch.dataset.bound) {
+            logSearch.addEventListener("input", () => {
+                const searchTerm = logSearch.value.toLowerCase();
+                const rows = logTableBody.querySelectorAll("tr");
+
+                rows.forEach(row => {
+                    const text = row.innerText.toLowerCase();
+                    row.style.display = text.includes(searchTerm) ? "" : "none";
+                });
+            });
+            logSearch.dataset.bound = true;
+        }
+    }
+
+    // Initial load
     loadStats();
     loadAutomationActivity();
+    load_all_automation_logs();
+
+    // Auto refresh (every 30s)
+    setInterval(() => {
+        loadStats();
+        loadAutomationActivity();
+    }, 30000);
 });
 </script>
+
 
 <!--  End  -->
 <script>
@@ -849,33 +938,6 @@ let users = [
         status: 'Active',
         joinDate: '2024-01-15',
         avatar: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150'
-    },
-    {
-        id: 2,
-        name: 'Jane Smith',
-        email: 'jane.smith@example.com',
-        role: 'Editor',
-        status: 'Active',
-        joinDate: '2024-01-10',
-        avatar: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150'
-    },
-    {
-        id: 3,
-        name: 'Mike Johnson',
-        email: 'mike.johnson@example.com',
-        role: 'User',
-        status: 'Inactive',
-        joinDate: '2024-01-05',
-        avatar: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=150'
-    },
-    {
-        id: 4,
-        name: 'Sarah Wilson',
-        email: 'sarah.wilson@example.com',
-        role: 'Editor',
-        status: 'Active',
-        joinDate: '2024-01-20',
-        avatar: 'https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg?auto=compress&cs=tinysrgb&w=150'
     }
 ];
 
