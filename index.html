@@ -858,10 +858,10 @@ $(document).ready(function () {
     load_all_automation_logs();
 
     // Auto refresh (every 30s)
-    setInterval(() => {
-        loadStats();
-        loadAutomationActivity();
-    }, 30000);
+    // setInterval(() => {
+    //     loadStats();
+    //     loadAutomationActivity();
+    // }, 30000);
 });
 </script>
 
@@ -872,7 +872,7 @@ $(document).ready(function () {
   $("#runAutomationBtn").click(function () {
 
         $.ajax({
-        url: "https://tnw7lfn2-8090.inc1.devtunnels.ms/run-automation",
+        url: "https://57hs7kc9-8002.inc1.devtunnels.ms/run-automation",
         method: "GET",
         success: function (response) {
             console.log("Raw response:", response);
@@ -1890,4 +1890,5 @@ header {
 
 </body>
 </html>
+
 
